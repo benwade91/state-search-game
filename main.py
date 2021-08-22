@@ -4,7 +4,7 @@ import pandas
 
 screen = turtle.Screen()
 screen.bgpic('blank_states_img.gif')
-
+screen.setup(width=800, height=500)
 data = pandas.read_csv('50_states.csv')
 
 state_list = data.state.tolist()
