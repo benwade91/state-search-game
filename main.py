@@ -8,7 +8,6 @@ screen.setup(width=800, height=500)
 data = pandas.read_csv('50_states.csv')
 
 state_list = data.state.tolist()
-print(state_list)
 
 def add_state(state,x,y):
     state_label = turtle.Turtle()
@@ -21,11 +20,22 @@ def add_state(state,x,y):
 game_on = True
 
 while game_on:
-    state_search = screen.textinput('States', 'enter the name of a state?').lower().title()
-    if state_search in data.values:
-        search = (data[data['state'] == state_search])
+    state_name = screen.textinput('States', 'enter the name of a state?').title()
+
+    if state_name in data.values:
+        search = (data[data['state'] == state_name])
         add_state(search.state.tolist()[0], search.x, search.y)
-        state_list.remove(state_search)
-        print(state_list)
+        if state_name in state_list:
+            state_list.remove(state_name)
+    elif state_name == 'Exit':
+        break
+
+
+states_dict = {
+    'State Name': state_list
+}
+
+states_dataframe = pandas.DataFrame(states_dict)
+states_dataframe.to_csv('states_to_study.csv')
 
 turtle.exitonclick()
